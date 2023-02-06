@@ -41,16 +41,25 @@ function register(req, res, next){
         var login = req.body.txtUser;
         var passwd = req.body.txtPwd;
         var email = req.body.txtemail;
-        var sql = "INSERT INTO users (login, password, email) VALUES ('" + login + "', '" + passwd + "', '" + email + "')";
-        db.query(sql, function(err, results){
-            if(err){
-                message = "Coś poszło nie tak!";
-                res.render('register.ejs', {message: message});
-            } else {
-                message = "Udało się zarejestrować";
+        var sql1 = "SELECT login, id, email FROM users WHERE login='" + login + "'";
+        db.query(sql1, function(err, results1){
+            if(results1.length == 0){
+                var sql2 = "INSERT INTO users (login, password, email) VALUES ('" + login + "', '" + passwd + "', '" + email + "')";
+                db.query(sql2, function(err, results2){
+                    if(err){
+                        message = "Coś poszło nie tak!";
+                        res.render('register.ejs', {message: message});
+                    } else {
+                        message = "Udało się zarejestrować";
+                        res.render('register.ejs', {message: message});
+                    }
+                });   
+            }else{
+                message = "Istnieje już użytkownik z tym loginem :(";
                 res.render('register.ejs', {message: message});
             }
-        });   
+           
+        }); 
     } else {
         res.render('register.ejs', {message: message});
     }
