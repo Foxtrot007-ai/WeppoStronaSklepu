@@ -1,0 +1,35 @@
+<html lang = "pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Sklep Internetowy</title>
+    <link rel = "stylesheet" href = "/style.css">
+</head>
+<body>
+    <div><a href = "/index">Wróć do strony głównej</a></div>
+    <form method="POST">
+        <div id = 'register'>
+            <div>
+                <label>Nazwa użytkownika:</label>
+                <input type="text" name = 'txtUser' />
+            </div>
+            <div>
+                <label>Hasło:</label>
+                <input type="password" name = 'txtPwd' />
+            </div>
+            <div>
+                <label>Email:</label>
+                <input type="email" name = 'txtemail' />
+            </div>
+            <div>
+                <button>Zarejestruj się</button>
+            </div>
+            <% if (locals.message){ %>
+                <div class = 'message'>
+                    <%= locals.message %>
+                </div>
+            <% } %>
+        </div>
+    </form>
+
+</body>
+</html>

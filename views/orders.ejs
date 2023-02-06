@@ -1,0 +1,60 @@
+<html lang = "pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Sklep Internetowy</title>
+    <link rel = "stylesheet" href = "/style.css">
+</head>
+<body>
+
+    <% if (locals.login){ %>
+        <div class = "username">
+            Witaj <%= locals.login %>!
+        </div>
+    <% } %>
+
+    <div><a href = "/index">Wróć do strony głównej</a></div>
+
+    <div class = "infoCart">Koszyk </div>
+    <table>
+        <tr>
+            <th>Numer Zamówienia</th>
+            <th>Nazwa przedmiotu</th>
+            <th>Przedmiot</th>
+            <th>Cena</th>
+            <th>Zamów!</th>
+        </tr>
+        <%  for(var i = 0; i < locals.cart.length; i++) {%>
+            <tr>
+                <td><%= locals.cart[i].id %></td>
+                <td><%= locals.cart[i].name %></td>
+                <td><%= locals.cart[i].itemId %><</td>
+                <td><%= locals.cart[i].price %><</td>
+                <td><form action = "/orders" method="POST">
+                    <input type="hidden" name="action" value="orderIt"/>
+                    <input type="hidden" name="id" value="<%= locals.cart[i].id %>"/>
+                    <button>Kup Teraz</button>
+                </form></td>
+            </tr>
+        <% } %>
+    </table>
+
+    <div class = "infoOrders">Zamówienia </div>
+    <table>
+        <tr>
+            <th>Numer Zamówienia</th>
+            <th>Nazwa przedmiotu</th>
+            <th>Przedmiot</th>
+            <th>Cena</th>
+        </tr>
+        <%  for(var i = 0; i < locals.orders.length; i++) {%>
+            <tr>
+                <td><%= locals.orders[i].id %></td>
+                <td><%= locals.orders[i].name %></td>
+                <td><%= locals.orders[i].itemId %><</td>
+                <td><%= locals.orders[i].price %><</td>
+            </tr>
+        <% } %>
+    </table>
+
+</body>
+</html>

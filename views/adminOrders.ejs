@@ -1,0 +1,100 @@
+<html lang = "pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Sklep Internetowy</title>
+    <link rel = "stylesheet" href = "/style.css">
+</head>
+<body>
+    <% if (locals.login){ %>
+        <div class = "username">
+            Witaj <%= locals.login %>!
+        </div>
+    <% } %>
+
+    <div><a href = "/index">Wróć do strony głównej</a></div>
+    
+    <div class = "title">Aktualne zamówienia</div>
+    <table>
+        <tr>
+            <th>Id zamówienia</th>
+            <th>Nazwa produktu</th>
+            <th>Id produktu</th>
+            <th>Id użytkownika</th>
+            <th>Email użytkownika</th>
+            <th>Cena</th>
+        </tr>
+        <%  for(var i = 0; i < locals.data.length; i++) {%>
+        <tr>
+            <td><%= locals.data[i].id %></td>
+            <td><%= locals.data[i].name %></td>
+            <td><%= locals.data[i].itemId %><</td>
+            <td><%= locals.data[i].userId %><</td>
+            <td><%= locals.data[i].email %><</td>
+            <td><%= locals.data[i].price %><</td>
+        </tr>
+        <% } %>
+    </table>
+    <form action = "/orders" method="POST">
+        <input type="hidden" name="action" value="deleteOrder"/>
+        <label>Podaj Id zamówienia do usunięcia:</label>  
+        <input type="number" name = 'orderId'/>
+        <button>Usuń zamówienia</button>
+    </form>
+
+    <div class = "title">Opcje edycji przedmiotów</div>
+    <table>
+        <tr>
+            <th>Id produktu</th>
+            <th>Nazwa produktu</th>
+            <th>Nazwa obrazu</th>
+            <th>Opis</th>
+            <th>Cena</th>
+        </tr>
+        <%  for(var i = 0; i < locals.items.length; i++) {%>
+        <tr>
+            <td><%= locals.items[i].id %></td>
+            <td><%= locals.items[i].name %></td>
+            <td><%= locals.items[i].jpgname %><</td>
+            <td><%= locals.items[i].description %><</td>
+            <td><%= locals.items[i].price %><</td>
+        </tr>
+        <% } %>
+    </table>
+
+    <form action = "/orders" method="POST">
+        <input type="hidden" name="action" value="delete"/>
+        <label>Podaj Id produktu do usunięcia:</label>  
+        <input type="number" name = 'itemId'/>
+        <button>Usuń przedmiot</button>
+    </form>
+
+    <form action = "/orders" method="POST">
+        <input type="hidden" name="action" value="add"/>
+        <label> Nazwa produktu: </label>
+        <input type="text" name = 'name'/>
+        <label> Nazwa obrazu: </label>
+        <input type="text" name = 'jpgname'/>
+        <label> Opis: </label>
+        <input type="text" name = 'description'/>
+        <label> Cena: </label>
+        <input type="text" name = 'price'/>
+        <button>Dodaj przedmiot</button>
+    </form>
+
+    <form action = "/orders" method="POST">
+        <input type="hidden" name="action" value="modify"/>
+        <label> Id produktu do edycji: </label>
+        <input type="text" name = 'id'/>
+        <label>Nowa nazwa produktu: </label>
+        <input type="text" name = 'name'/>
+        <label>Nowa nazwa obrazu: </label>
+        <input type="text" name = 'jpgname'/>
+        <label>Nowy opis: </label>
+        <input type="text" name = 'description'/>
+        <label> Cena: </label>
+        <input type="text" name = 'price'/>
+        <button>Zmodyfikuj przedmiot</button>
+    </form>
+
+</body>
+</html>

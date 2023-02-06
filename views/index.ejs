@@ -1,0 +1,44 @@
+<html lang = "pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Sklep Internetowy Weppo</title>
+    <link rel = "stylesheet" href = "/style.css">
+</head>
+<body>
+
+    <div class = "title">Sklep Internetowy Weppo</div>
+    
+    <div class = "fakelist"> 
+        <% if (locals.id != null){ %>
+            <div><a href = "/orders">1. Moje zamówienia (Witaj <%= locals.login %>)</a></div>
+            <div><a href = "/logout">2. Wyloguj</a></div>
+        <% } else { %>
+            <div><a href = "/orders">1. Moje zamówienia</a></div>
+            <div><a href = "/login">2. Zaloguj się</a></div>
+            <div><a href = "/register">3. Zarejestruj się</a></div>
+        <% } %> 
+    </div>
+   
+    <div>
+        <label>Szukaj przedmiotu:</label>
+        <form action = "/index" method="POST">
+            <input type="text" name="toFind">
+            <button>Szukaj</button>
+        </form>
+    </div>
+
+    <% for(var i = 0; i < locals.items.length; i++) {%>
+        <div class = "przedmiot">
+            <%= locals.items[i].name %> price: <%= locals.items[i].price %> 
+            <image src="/<%= locals.items[i].jpgname %>.jpg"></image>
+            <%= locals.items[i].description %>
+            <% if (locals.id != null){ %>
+            <form action = "/addToCart" method="POST">
+                <input type="hidden" name="itemId" value="<%= locals.items[i].id %>">
+                <button>Dodaj do koszyka</button>
+            </form>
+            <% } %>
+        </div>
+    <% } %>
+</body>
+</html>
